@@ -41,12 +41,14 @@ def elemental_fight():
     while True: # loop to allow only the correct inputs
         timeout_seconds = 8 
         print(f"\nYou have {timeout_seconds} seconds!") # to tell user how much time they have to answer
-        try:
+
+        try: # to catch if user does not answer in time, if they do not answer in time, it will go to except and end the game
             fight1 = inputimeout(prompt="Choose an element quick! (fire, water, earth, air): ", timeout=timeout_seconds).lower() # input with a timer, if user does not answer in time, it will go to except
-        except TimeoutOccurred:
+        except:
             print("\nRan out of time it got you!")
             failed()
             break
+
         if fight1 not in valid_elements:  # If input is not a choice, this section will repeat until a correct input is inserted
             print("Invalid choice!")
             continue 
