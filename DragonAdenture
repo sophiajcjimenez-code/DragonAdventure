@@ -1,15 +1,16 @@
 #ElementalDragons
 
 import random
-import time
-# import threading
+import time # to place pauses for better readability
+import threading
 
-dragonweakness = {
+dragonweakness = { # dictionary for dragon weaknesses
     'fire' : 'water',
     'water' : 'earth',
     'air' : 'water',
     'earth' : 'fire'
 }
+
 
 # Function to fight the dragon
 def dragon_fight(dragon_type):
@@ -33,56 +34,62 @@ def elemental_fight():
     time.sleep(1)
     print("\nYou hear a roar!!!!")
     time.sleep(1)
-    print("\nA bigger dragon appeared! It throws a fire attack!")
+    print("\nA bigger dragon appeared! It throws a FIRE attack!")
     time.sleep(1)
     print("\nYou have no time to react what element do you use?")
-    fight1 = input("Choose an element quick! (fire, water, earth, air): ")
-    if fight1 == "water":
-        time.sleep(1)
-        print(f"\nSuccess! You used water!")
-        time.sleep(1)
-        print("Try leave before it wakes up.. ")
-        time.sleep(1)
-        # Hide and Seek
-        hiding_place = ["rocks", "giant mushroom", "vines"]
-        dragon_choice = random.choice(hiding_place)
+    valid_elements = ["fire", "water", "earth", "air"] # the only options for user input
+    while True: # loop to allow only the correct inputs
+        fight1 = input("Choose an element quick! (fire, water, earth, air): ")
+        if fight1 not in valid_elements:
+            print("Invalid choice!")
+            continue 
 
-        fight2 = input("\nIt woke up! Where do you want to hide?? by the rocks, giant mushroom or vines? ").lower()
+        elif fight1 == "water":
+            time.sleep(1)
+            print(f"\nSuccess! You used {fight1}!")
+            time.sleep(1)
+            print("Try leave before it wakes up.. ")
+            time.sleep(1)
+            # Hide and Seek
+            hiding_place = ["rocks", "giant mushroom", "vines"]
+            dragon_choice = random.choice(hiding_place)
 
-        time.sleep(2)
-        print("The dragon wanders. . . \nlistening in. . .")
-        time.sleep(2)
-    
-        if fight2 == dragon_choice:
-            print("\nYou got caught! He drags you out the cave. . .")
-            time.sleep(1)
-            failed()
-
-        else:
-            print("\nYou hid well..")
-            time.sleep(1)
-            print("\nLeave while you can.")
-            time.sleep(1)
-            print("\nRAWRRRRRR! He caught you!")
-            time.sleep(1)
-            print("\nAnswer this riddle correctly and you'll live!")
-            time.sleep(1)
-            # Riddle section
-            riddle = input("\nRiddle: I speak without a mouth and hear without ears. What am I? ").lower()
-            if riddle == "echo":
+            fight2 = input("\nIt woke up! Where do you want to hide?? by the rocks, giant mushroom or vines? ").lower()
+            time.sleep(2)
+            print("The dragon wanders. . . \nlistening in. . .")
+            time.sleep(2)
+        
+            if fight2 == dragon_choice:
+                print("\nYou got caught! He drags you out the cave. . .")
                 time.sleep(1)
-                print(".")
-                time.sleep(1)
-                print(".")
-                time.sleep(1)
-                print(".")
-                time.sleep(1)
-                print("Correct! You escape safely with the crown! Take back my crown and meet me by the castle for your reward!")
-            else:
-                print("Wrong answer!")
                 failed()
-    else: 
-        failed()
+
+            else:
+                print("\nYou hid well..")
+                time.sleep(1)
+                print("\nLeave while you can.")
+                time.sleep(1)
+                print("\nRAWRRRRRR! He caught you!")
+                time.sleep(1)
+                print("\nAnswer this riddle correctly and you'll live!")
+                time.sleep(1)
+                # Riddle section
+                riddle = input("\nRiddle: I speak without a mouth and hear without ears. What am I? ").lower()
+                if riddle == "echo":
+                    time.sleep(1)
+                    print(".")
+                    time.sleep(1)
+                    print(".")
+                    time.sleep(1)
+                    print(".")
+                    time.sleep(1)
+                    print("Correct! You escape safely with the crown! Take back my crown and meet me by the castle for your reward!")
+                else:
+                    print("Wrong answer!")
+                    failed()
+        else:
+            print(f"{fight1} is ineffective to fire types...")
+            failed()
 
 # Restart or no
 def failed():
@@ -104,7 +111,7 @@ def adventure():
     print("\nYou have been given a quest to get back my crown!")
     time.sleep(1)
 
-    while True:  # FIRST CHOICE LOOP
+    while True:  # first choice loop
         print("\nYou see two paths ahead: cloudy or sunny")
         choice1 = input("Which path will you take? ").lower()
 
@@ -113,7 +120,7 @@ def adventure():
             time.sleep(2)
             print("You arrive in the forest")
             time.sleep(1)
-            while True:  # SECOND CHOICE LOOP
+            while True:  # second choice loop
                 print("\nOptions: continue, cave, back")
                 choice2 = input("What do you do? ").lower()
 
@@ -140,7 +147,7 @@ def adventure():
             time.sleep(2)
             print("You arrive at the river")
             time.sleep(1)
-            while True:
+            while True: # second choice loop
                 print("\nOptions: continue, mountains, back")
                 choice2 = input("What do you do? ").lower()
 
