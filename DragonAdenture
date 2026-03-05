@@ -5,20 +5,12 @@ import time # to place pauses for better readability
 from inputimeout import inputimeout, TimeoutOccurred
 # import threading
 
-# Timer display function
-def display_timer(seconds):
-    for i in range(seconds, 0, -1):
-        print(f"\rTime remaining: {i} seconds", end="", flush=True)
-        time.sleep(1)
-    print("\rTime's up!                 ")  # Clear the timer line
-
 dragonweakness = { # dictionary for dragon weaknesses
     'fire' : 'water',
     'water' : 'earth',
     'air' : 'water',
     'earth' : 'fire'
 }
-
 
 # Function to fight the dragon
 def dragon_fight(dragon_type):
@@ -29,7 +21,7 @@ def dragon_fight(dragon_type):
     if element == dragonweakness[dragon_type]:
         print(f"\nSuccess! You used {element} and defeated the {dragon_type} dragon! ")
         time.sleep(2)
-        elemental_fight() # Moves on with the story
+        elemental_fight() # Move forward on with the story
     else:
         failed()
         
@@ -90,21 +82,28 @@ def elemental_fight():
                 print("\nAnswer this riddle correctly and you'll live!")
                 time.sleep(1)
 
-                # Riddle 
-                riddle = input("\nRiddle: I speak without a mouth and hear without ears. What am I? ").lower()
-                if riddle == "echo":
-                    time.sleep(1)
-                    print(".")
-                    time.sleep(1)
-                    print(".")
-                    time.sleep(1)
-                    print(".")
-                    time.sleep(1)
-                    print("Correct! You escape safely with the crown! Take back my crown and meet me by the castle for your reward!")
-                else:
-                    print("Wrong answer!")
-                    failed()
-            break
+                # Riddle with up to 3 attempts
+                attempts = 3
+                while attempts > 0:
+                    riddle = input("\nRiddle: I speak without a mouth and hear without ears. What am I? ").lower()
+                    if riddle == "echo":
+                        time.sleep(1) # for suspense if correct or not
+                        print(".")
+                        time.sleep(1)
+                        print(".")
+                        time.sleep(1)
+                        print(".")
+                        time.sleep(1)
+                        print("Correct! You escape safely with the crown! Take back my crown and meet me by the castle for your reward!")
+                        break
+                    else:
+                        attempts -= 1
+                        if attempts > 0:
+                            print(f"Wrong answer! You have {attempts} {'tries' if attempts>1 else 'try'} left.")
+                        else:
+                            print("Wrong answer!")
+                            failed()
+                            break
         else:
             print(f"{fight1} is ineffective to fire types...") # if user picks the wrong element, they get a message and then the game ends
             failed()
@@ -115,7 +114,7 @@ def failed():
     print(f"Oh no! The dragon defeats you. Game over.")
     time.sleep(1)
     print("Would you like to try again?")
-    restart = input("Type yes or no: ").lower()
+    restart = input("Type yes or no: ").lower() #option to restart the game if the user fails, if they say no, it will end the game
     if restart == 'yes':
         print("Restarting . . .")
         time.sleep(1)
@@ -189,9 +188,25 @@ def adventure():
                     print("Invalid choice.")
 
         else:
-            print("Invalid choice.")
+            print("Invalid choice.") # If input is not a choice, this section will repeat until a correct input is inserted
 
 
 adventure() # A call to start the main function
 
-        
+# attempts = 3
+# while attempts > 0:
+#     riddle = input("\nRiddle: I speak without a mouth and hear without ears. What am I? ").lower()
+#     if riddle == "echo":
+#         time.sleep(1) # for suspense if correct or not
+
+#         print("Correct! You escape safely with the crown! Take back my crown and meet me by the castle for your reward!")
+#         break
+#     else:
+#         attempts -= 1
+#         if attempts > 0:
+#             print(f"Wrong answer! You have {attempts} {'tries' if attempts>1 else 'try'} left.")
+#         else:
+#             print("Wrong answer!")
+#             failed()
+#             break
+             
