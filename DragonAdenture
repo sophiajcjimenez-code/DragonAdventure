@@ -1,5 +1,7 @@
 #ElementalDragons
 
+import random
+
 dragonweakness = {
     'fire' : 'water',
     'water' : 'earth',
@@ -14,44 +16,95 @@ def dragon_fight(dragon_type):
     
     if element == dragonweakness[dragon_type]:
         print(f"Success! You used {element} and defeated the {dragon_type} dragon! You win the adventure!")
+        elemental_fight()
     else:
-        print(f"Oh no! {element} is ineffective. The {dragon_type} dragon defeats you. Game over.")
+        failed()
+        
+# BIG DRAGFON FIGHT
+def elemental_fight():
+    # First attack
+    print("You continue on your adventure...")
+    print("You hear a roar!!!!!")
+    print("The daddy dragon appeared! It throws a fire attack!")
+    fight1 = input("Choose an element quick! (fire, water, earth, air): ")
+    if fight1 == "water":
+        print(f"Success! You used water!")
+        print("Try leave before it wakes up.. ")
 
-# Adventure Start
-print("Welcome to the Elemental Dragon Adventure!")
-print("You are on a quest to reach the legendary dragon lair.")
+        # Hide and Seek
+        hiding_place = ["rocks", "giant mushroom", "vines"]
+        dragon_choice = random.choice(hiding_place)
+
+        fight2 = input("It woke up! Where do you want to hide??")
+    
+        if fight2 == dragon_choice:
+            print("You got caught!")
+            failed()
+
+        else:
+            print("You hid well")
+            print("You try to leave... turns around and sees you and rather than attacking, asks you a riddle.. ")
+
+            # Riddle section
+            riddle = input("Riddle: I speak without a mouth and hear without ears. What am I? "
+            ).lower()
+
+            if riddle == "echo":
+                print("Correct! You escape safely with the crown! He lets you take the crown")
+            else:
+                print("Wrong answer!")
+                failed()
+
+    else: 
+        failed()
+
+# Restart or no
+def failed():
+    print(f"Oh no! The element is ineffective. The dragon defeats you. Game over.")
+    print("Would you like to try again?")
+    restart = input("Type Yes or No: ")
+    if restart ==  'Yes':
+        adventure()        
+    else:
+        return
+
+# Adventure beginning
+def adventure():
+    print("Adventure Time!")
+    print("You have been given a quest to get back my crown!")
 
 
-print("You see two paths ahead, which will you take? left or right")
-choice1 = input("Which path will you take? ").lower()
 
-if choice1 == 'left':
-    print("You travel... ended up in the Forest! ")
-    print("Do you choose to continue onwards or down this cave?")
-    choice2 = input("Which path will you take? ").lower()
-    if choice2 == 'cave':
-        print("You decided to continue further into the cave...")
-        dragon_type = 'fire'
-        dragon_fight(dragon_type)
-    elif choice2 == 'continue':
-        print("You decided to continue further into the forest...")
-        dragon_type = 'earth'
-        dragon_fight(dragon_type)
+    print("You see two paths ahead, which will you take? left or right")
+    choice1 = input("Which path will you take? ").lower()
 
-elif choice1 == 'right':
-    print('You have endded up at the river')
-    print("Do you choose to continue onwards or up this mountain?")
-    choice2 = input("Which path will you take? ").lower()
-    if choice2 == 'mountains':
-        print("You decided to continue further into the forest...")
-        dragon_type = 'air'
-        dragon_fight(dragon_type)
-    elif choice2 == 'continue':
-        print("You decided to continue further into the river...")
-        dragon_type = 'water'
-        dragon_fight(dragon_type)
+    if choice1 == 'left':
+        print("You travel... ended up in the Forest! ")
+        print("Do you choose to continue onwards or down this cave?")
+        choice2 = input("Which path will you take? ").lower()
+        if choice2 == 'cave':
+            print("You decided to continue further into the cave...")
+            dragon_type = 'fire'
+            dragon_fight(dragon_type)
+        elif choice2 == 'continue':
+            print("You decided to continue further into the forest...")
+            dragon_type = 'earth'
+            dragon_fight(dragon_type)
+
+    elif choice1 == 'right':
+        print('You have endded up at the river')
+        print("Do you choose to continue onwards or up this mountain?")
+        choice2 = input("Which path will you take? ").lower()
+        if choice2 == 'mountains':
+            print("You decided to continue further into the forest...")
+            dragon_type = 'air'
+            dragon_fight(dragon_type)
+        elif choice2 == 'continue':
+            print("You decided to continue further into the river...")
+            dragon_type = 'water'
+            dragon_fight(dragon_type)
 
 
-print("test")
+adventure()
 
         
