@@ -13,7 +13,10 @@ dragonadventure.py/
       Water is weak against Earth
       Earth is weak against Fire
       Air is weak against Water
-      
+
+      Answer to first fight with big dragon: (answer this within 8 seconds, there is a timer).
+      water
+  
       Answer to riddle:
       echo
 
