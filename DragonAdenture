@@ -2,7 +2,15 @@
 
 import random
 import time # to place pauses for better readability
-import threading
+from inputimeout import inputimeout, TimeoutOccurred
+# import threading
+
+# Timer display function
+def display_timer(seconds):
+    for i in range(seconds, 0, -1):
+        print(f"\rTime remaining: {i} seconds", end="", flush=True)
+        time.sleep(1)
+    print("\rTime's up!                 ")  # Clear the timer line
 
 dragonweakness = { # dictionary for dragon weaknesses
     'fire' : 'water',
@@ -15,17 +23,17 @@ dragonweakness = { # dictionary for dragon weaknesses
 # Function to fight the dragon
 def dragon_fight(dragon_type):
     print(f"\nYou encounter a {dragon_type} dragon!")
-    time.sleep(1)
+    time.sleep(1)  
     element = input("\nChoose an element to attack back with (fire, water, earth, air): ").lower()
     time.sleep(1)
     if element == dragonweakness[dragon_type]:
         print(f"\nSuccess! You used {element} and defeated the {dragon_type} dragon! ")
         time.sleep(2)
-        elemental_fight()
+        elemental_fight() # Moves on with the story
     else:
         failed()
         
-# BIG DRAGFON FIGHT
+# Big dragon fight
 def elemental_fight():
     # First attack
     print("\nYou continue on your adventure...")
@@ -39,32 +47,40 @@ def elemental_fight():
     print("\nYou have no time to react what element do you use?")
     valid_elements = ["fire", "water", "earth", "air"] # the only options for user input
     while True: # loop to allow only the correct inputs
-        fight1 = input("Choose an element quick! (fire, water, earth, air): ")
-        if fight1 not in valid_elements:
+        timeout_seconds = 8 
+        print(f"\nYou have {timeout_seconds} seconds!") # to tell user how much time they have to answer
+        try:
+            fight1 = inputimeout(prompt="Choose an element quick! (fire, water, earth, air): ", timeout=timeout_seconds).lower() # input with a timer, if user does not answer in time, it will go to except
+        except TimeoutOccurred:
+            print("\nRan out of time it got you!")
+            failed()
+            break
+        if fight1 not in valid_elements:  # If input is not a choice, this section will repeat until a correct input is inserted
             print("Invalid choice!")
             continue 
 
-        elif fight1 == "water":
+        elif fight1 == "water": # the only answer that can defeat the dragon
             time.sleep(1)
             print(f"\nSuccess! You used {fight1}!")
             time.sleep(1)
             print("Try leave before it wakes up.. ")
             time.sleep(1)
+
             # Hide and Seek
             hiding_place = ["rocks", "giant mushroom", "vines"]
             dragon_choice = random.choice(hiding_place)
 
-            fight2 = input("\nIt woke up! Where do you want to hide?? by the rocks, giant mushroom or vines? ").lower()
+            fight2 = input("\nIt woke up! Where do you want to hide?? by the rocks, giant mushroom or vines? ").lower() # user input for hiding, no timer for this one
             time.sleep(2)
             print("The dragon wanders. . . \nlistening in. . .")
             time.sleep(2)
         
-            if fight2 == dragon_choice:
+            if fight2 == dragon_choice: # if user picks the same hiding place as the dragon, they get caught
                 print("\nYou got caught! He drags you out the cave. . .")
                 time.sleep(1)
                 failed()
 
-            else:
+            else: # if user picks a different hiding place, they move onto riddle
                 print("\nYou hid well..")
                 time.sleep(1)
                 print("\nLeave while you can.")
@@ -73,7 +89,8 @@ def elemental_fight():
                 time.sleep(1)
                 print("\nAnswer this riddle correctly and you'll live!")
                 time.sleep(1)
-                # Riddle section
+
+                # Riddle 
                 riddle = input("\nRiddle: I speak without a mouth and hear without ears. What am I? ").lower()
                 if riddle == "echo":
                     time.sleep(1)
@@ -87,11 +104,13 @@ def elemental_fight():
                 else:
                     print("Wrong answer!")
                     failed()
+            break
         else:
-            print(f"{fight1} is ineffective to fire types...")
+            print(f"{fight1} is ineffective to fire types...") # if user picks the wrong element, they get a message and then the game ends
             failed()
+            break
 
-# Restart or no
+# Optional restart
 def failed():
     print(f"Oh no! The dragon defeats you. Game over.")
     time.sleep(1)
@@ -111,7 +130,7 @@ def adventure():
     print("\nYou have been given a quest to get back my crown!")
     time.sleep(1)
 
-    while True:  # first choice loop
+    while True:  # First choice loop
         print("\nYou see two paths ahead: cloudy or sunny")
         choice1 = input("Which path will you take? ").lower()
 
@@ -120,7 +139,7 @@ def adventure():
             time.sleep(2)
             print("You arrive in the forest")
             time.sleep(1)
-            while True:  # second choice loop
+            while True:  # Second choice loop
                 print("\nOptions: continue, cave, back")
                 choice2 = input("What do you do? ").lower()
 
@@ -139,7 +158,7 @@ def adventure():
                 elif choice2 == "back":
                     break  # goes back to first choice
 
-                else:
+                else: # If input is not a choice, this section will repeat until a correct input is inserted
                     print("Invalid choice.")
 
         elif choice1 == "sunny":
@@ -166,11 +185,13 @@ def adventure():
                 elif choice2 == "back":
                     break
 
-                else:
+                else:  # If input is not a choice, this section will repeat until a correct input is inserted
                     print("Invalid choice.")
 
         else:
             print("Invalid choice.")
-adventure()
+
+
+adventure() # A call to start the main function
 
         
