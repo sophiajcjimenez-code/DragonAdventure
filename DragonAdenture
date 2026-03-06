@@ -1,9 +1,9 @@
-#ElementalDragons
+#Dragon Adventure Game
 
 import random
 import time # to place pauses for better readability
-from inputimeout import inputimeout, TimeoutOccurred
-# import threading
+from inputimeout import inputimeout
+
 
 dragonweakness = { # dictionary for dragon weaknesses
     'fire' : 'water',
@@ -13,18 +13,27 @@ dragonweakness = { # dictionary for dragon weaknesses
 }
 
 # Function to fight the dragon
-def dragon_fight(dragon_type):
+def dragon_fight(dragon_type): # dragon_type is received from a previous function and tells us what type of dragon appears
     print(f"\nYou encounter a {dragon_type} dragon!")
     time.sleep(1)  
-    element = input("\nChoose an element to attack back with (fire, water, earth, air): ").lower()
-    time.sleep(1)
-    if element == dragonweakness[dragon_type]:
-        print(f"\nSuccess! You used {element} and defeated the {dragon_type} dragon! ")
-        time.sleep(2)
-        elemental_fight() # Move forward on with the story
-    else:
-        failed()
-        
+    while True: # if input is not a choice, this section will repeat until a correct input is inserted 
+        valid_elements = ["fire", "water", "earth", "air"] # the only valid options for user input
+        element = input("\nChoose an element to attack back with (fire, water, earth, air): ").lower()
+        time.sleep(1)
+        if element not in valid_elements:
+            print("Invalid choice!")
+            continue
+
+        elif element == dragonweakness[dragon_type]:
+            print(f"\nSuccess! You used {element} and defeated the {dragon_type} dragon! ")
+            time.sleep(2)
+            elemental_fight() # Move forward on with the story
+            break
+            
+        else:
+            failed()
+            break
+            
 # Big dragon fight
 def elemental_fight():
     # First attack
@@ -61,8 +70,8 @@ def elemental_fight():
             time.sleep(1)
 
             # Hide and Seek
-            hiding_place = ["rocks", "giant mushroom", "vines"]
-            dragon_choice = random.choice(hiding_place)
+            hiding_place = ["rocks", "giant mushroom", "vines"] # the only hiding places possible
+            dragon_choice = random.choice(hiding_place) # the dragon will randomly pick a spot
 
             fight2 = input("\nIt woke up! Where do you want to hide?? by the rocks, giant mushroom or vines? ").lower() # user input for hiding, no timer for this one
             time.sleep(2)
@@ -73,6 +82,7 @@ def elemental_fight():
                 print("\nYou got caught! He drags you out the cave. . .")
                 time.sleep(1)
                 failed()
+                
 
             else: # if user picks a different hiding place, they move onto riddle
                 print("\nYou hid well..")
@@ -87,8 +97,8 @@ def elemental_fight():
                 # Riddle with up to 3 attempts
                 attempts = 3
                 while attempts > 0:
-                    riddle = input("\nRiddle: I speak without a mouth and hear without ears. What am I? ").lower()
-                    if riddle == "echo":
+                    riddle = input("\nRiddle: I am always hungry, I must always be fed. \nThe finger I touch will soon turn red. \nWhat am I? ").lower()
+                    if riddle == "fire":
                         time.sleep(1) # for suspense if correct or not
                         print(".")
                         time.sleep(1)
@@ -97,19 +107,20 @@ def elemental_fight():
                         print(".")
                         time.sleep(1)
                         print("Correct! You escape safely with the crown! Take back my crown and meet me by the castle for your reward!")
-                        break
+                        return
                     else:
                         attempts -= 1
                         if attempts > 0:
-                            print(f"Wrong answer! You have {attempts} {'tries' if attempts>1 else 'try'} left.")
+                            print(f"Wrong answer! You have {attempts} 'tries left.")
                         else:
                             print("Wrong answer!")
                             failed()
                             break
+            return
         else:
             print(f"{fight1} is ineffective to fire types...") # if user picks the wrong element, they get a message and then the game ends
             failed()
-            break
+            return
 
 # Optional restart
 def failed():
@@ -183,7 +194,7 @@ def adventure():
                     dragon_fight(dragon_type)
                     return
 
-                elif choice2 == "back":
+                elif choice2 == "back": # option if they want to turn back
                     break
 
                 else:  # If input is not a choice, this section will repeat until a correct input is inserted
@@ -195,20 +206,8 @@ def adventure():
 
 adventure() # A call to start the main function
 
-# attempts = 3
-# while attempts > 0:
-#     riddle = input("\nRiddle: I speak without a mouth and hear without ears. What am I? ").lower()
-#     if riddle == "echo":
-#         time.sleep(1) # for suspense if correct or not
 
-#         print("Correct! You escape safely with the crown! Take back my crown and meet me by the castle for your reward!")
-#         break
-#     else:
-#         attempts -= 1
-#         if attempts > 0:
-#             print(f"Wrong answer! You have {attempts} {'tries' if attempts>1 else 'try'} left.")
-#         else:
-#             print("Wrong answer!")
-#             failed()
-#             break
+
+
+
              
