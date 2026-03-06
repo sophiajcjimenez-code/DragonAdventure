@@ -5,7 +5,8 @@ This is an mini interactive Dragon story game where you will choose your path, b
 
 dragonadventure.py/
 - includes code for game + comments on reasoning for code
-- import following libraries: time and random
+- please also install: pip install inputimeout
+- import following libraries: time, random and inputimeout
 
       - HINTS TO REACH END GAME
       Answer to dragon weaknesses:
